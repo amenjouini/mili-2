@@ -34,36 +34,42 @@
 </head>
 <body class="bg-pink-50 flex items-center justify-center h-screen">
 
-    <div id="main-content" class="text-center p-8 bg-pink-50 rounded-2xl shadow-lg max-w-m w-full transition-opacity duration-500">
-        <!-- The main question -->
-        <h1 id="question" class="text-3xl md:text-4xl font-pacifico text-gray-800 mb-6">Will you be my... "something between friends and couple"?</h1>
+   <div id="main-content" class="text-center p-4 sm:p-8 bg-pink-50 rounded-2xl shadow-lg max-w-md mx-auto transition-opacity duration-500">
+  <!-- Question -->
+  <h1 id="question" class="text-2xl sm:text-3xl md:text-4xl font-pacifico text-gray-800 mb-4 sm:mb-6">
+    Will you be my... "something between friends and couple"?
+  </h1>
 
-        <!-- Image Placeholder: Replace the src with your image URL -->
-        <div class="my-6 flex items-center justify-center">
-            <img 
-            src="us.jpg" 
-            alt="A special moment"
-            class="text-center rounded-lg shadow-md w-[250px] h-[350px]"
-            >
-        </div>
+  <!-- Image -->
+  <div class="my-4 flex justify-center">
+    <img 
+      id="special-image"
+      src="us.jpg" 
+      alt="A special moment" 
+      class="rounded-lg shadow-md w-48 sm:w-64 md:w-80 h-auto"
+      onerror="this.onerror=null;this.src='https://placehold.co/300x300/fecdd3/4c51bf?text=Image+failed+to+load';"
+    >
+  </div>
 
-        <!-- The action buttons -->
- 
-        <div id="button-container" class="flex justify-center items-center gap-4 mt-4 relative h-16">
-            <button draggable="true" id="yes-button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-transform duration-200">
-                Yes
-            </button>
-            <!-- The 'No' button that will move -->
-            <button id="no-button" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg">
-                No
-            </button>
-        </div>
-                <div>
-            <button id="target" class="bg-gray-300 hover:bg-transparent-600 text-black font-bold py-3 px-8 rounded-lg shadow-lg">
-                Put Away Go here
-            </button>
-         </div>
-    </div>
+  <!-- Buttons -->
+  <div id="button-container" class="flex justify-center items-center gap-4 mt-4 flex-wrap">
+    <button draggable="true" id="yes-button" class="bg-green-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg">
+      Yes
+    </button>
+    <button id="no-button" class="bg-red-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg">
+      No
+    </button>
+  </div>
+
+  <div class="mt-4 flex justify-center">
+    <button id="target" class="bg-gray-300 text-black font-bold py-2 px-6 rounded-lg shadow-lg">
+      Put Away Go here
+    </button>
+  </div>
+</div>
+
+
+
     
     <!-- Success Message (hidden initially) -->
     <!-- <div id="success-message" class="hidden text-center p-8">
@@ -134,14 +140,14 @@ noButton.addEventListener('click', () => {
 });
 
 // ---------- YES BUTTON ----------
-yesButton.addEventListener('click', () => {
-  showYesMessage();
-});
+// Remove the click listener entirely
+// yesButton.addEventListener('click', () => {
+//   showYesMessage();
+// });
 
 // ---------- Helper Functions ----------
 function showYesMessage() {
-//   showMessage(yesMessage, "text-green-600");
-const msgPage = document.createElement("div");
+  const msgPage = document.createElement("div");
   msgPage.className = "text-center p-8 text-green-600";
   msgPage.innerHTML = `
     <h1 class="text-4xl md:text-5xl font-pacifico">${yesMessage}</h1>
@@ -160,6 +166,7 @@ function showMessage(text, colorClass) {
   document.body.appendChild(msgPage);
 }
 </script>
+
 
 
 </body>
