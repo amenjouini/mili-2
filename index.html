@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Use a custom font for the heading to make it feel more personal */
+        .font-pacifico {
+            font-family: 'Pacifico', cursive;
+        }
+        /* Basic styling for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Prevents scrolling on mobile when the button moves */
+            overflow: hidden;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        /* The 'No' button will be positioned absolutely to move it around */
+        #no-button {
+       transform: scale(1.1);
+        }
+        /* A little bounce animation for the 'Yes' button */
+        #yes-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-pink-50 flex items-center justify-center h-screen">
+
+    <div id="main-content" class="text-center p-8 bg-pink-50 rounded-2xl shadow-lg max-w-m w-full transition-opacity duration-500">
+        <!-- The main question -->
+        <h1 id="question" class="text-3xl md:text-4xl font-pacifico text-gray-800 mb-6">Will you be my... "something between friends and couple"?</h1>
+
+        <!-- Image Placeholder: Replace the src with your image URL -->
+        <div class="my-6 flex items-center justify-center">
+            <img 
+            src="us.jpg" 
+            alt="A special moment"
+            class="text-center rounded-lg shadow-md w-[250px] h-[350px]"
+            >
+        </div>
+
+        <!-- The action buttons -->
+ 
+        <div id="button-container" class="flex justify-center items-center gap-4 mt-4 relative h-16">
+            <button draggable="true" id="yes-button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-transform duration-200">
+                Yes
+            </button>
+            <!-- The 'No' button that will move -->
+            <button id="no-button" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg">
+                No
+            </button>
+        </div>
+                <div>
+            <button id="target" class="bg-gray-300 hover:bg-transparent-600 text-black font-bold py-3 px-8 rounded-lg shadow-lg">
+                Put Away Go here
+            </button>
+         </div>
+    </div>
+    
+    <!-- Success Message (hidden initially) -->
+    <!-- <div id="success-message" class="hidden text-center p-8">
+         <h1 class="text-4xl md:text-5xl font-pacifico text-green-600">Yesss! Let's be us! 🎉</h1>
+         <p class="text-gray-700 mt-4 text-lg">So... what now? 😉</p>
+    </div> -->
+
+
+<script>
+const noButton = document.getElementById('no-button');
+const yesButton = document.getElementById('yes-button');
+const mainContent = document.getElementById('main-content');
+const successMessage = document.getElementById('success-message');
+const target = document.getElementById("target");
+
+let noClickCount = 0;
+const noMessages = [
+  "A No ! REALLY? Try again 😒",
+  "For real girl another No ! <br> FUCK YOU Mili 😡",
+  "No you gotta be kidding me now… No NOs after this 😤"
+];
+
+const yesMessage = "Yesss! Let's be us! 🎉";
+
+// ---------- DRAG & DROP ----------
+yesButton.addEventListener("dragstart", (ev) => {
+  ev.dataTransfer.setData("application/my-app", ev.target.id);
+  ev.dataTransfer.effectAllowed = "move";
+});
+
+target.addEventListener("dragover", (ev) => {
+  ev.preventDefault();
+  ev.dataTransfer.dropEffect = "move";
+});
+
+target.addEventListener("drop", (ev) => {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("application/my-app");
+  const yesBtn = document.getElementById(data);
+
+  // Make Yes button match target size
+  yesBtn.style.width = target.offsetWidth + "px";
+  yesBtn.style.height = target.offsetHeight + "px";
+
+  // Keep it green (so don't copy target class)
+  target.replaceWith(yesBtn);
+
+  // Show success message page
+  showYesMessage();
+});
+
+// ---------- NO BUTTON TROLLING ----------
+noButton.addEventListener('click', () => {
+  if (noClickCount >= 4) return; // Already blocked
+
+  showMessage(noMessages[noClickCount], "text-red-600");
+
+  setTimeout(() => {
+    document.body.innerHTML = "";
+    document.body.appendChild(mainContent);
+    if (noClickCount >= 3) {
+      noButton.disabled = true;
+      noButton.classList.add("opacity-50", "cursor-not-allowed");
+    }
+  }, 5000);
+
+  noClickCount++;
+});
+
+// ---------- YES BUTTON ----------
+yesButton.addEventListener('click', () => {
+  showYesMessage();
+});
+
+// ---------- Helper Functions ----------
+function showYesMessage() {
+//   showMessage(yesMessage, "text-green-600");
+const msgPage = document.createElement("div");
+  msgPage.className = "text-center p-8 text-green-600";
+  msgPage.innerHTML = `
+    <h1 class="text-4xl md:text-5xl font-pacifico">${yesMessage}</h1>
+  `;
+  document.body.innerHTML = "";
+  document.body.appendChild(msgPage);
+}
+
+function showMessage(text, colorClass) {
+  const msgPage = document.createElement("div");
+  msgPage.className = "text-center p-8";
+  msgPage.innerHTML = `
+    <h1 class="text-4xl md:text-5xl ${colorClass}">${text}</h1>
+  `;
+  document.body.innerHTML = "";
+  document.body.appendChild(msgPage);
+}
+</script>
+
+
+</body>
+</html>
