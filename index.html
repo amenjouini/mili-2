@@ -9,32 +9,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Use a custom font for the heading to make it feel more personal */
+        /* Custom font for the main question */
         .font-pacifico {
             font-family: 'Pacifico', cursive;
         }
-        /* Basic styling for the body */
+        /* Basic body styling for centering */
         body {
             font-family: 'Inter', sans-serif;
-            /* Prevents scrolling on mobile when the button moves */
-            overflow: hidden;
-            position: relative;
-            width: 100vw;
-            height: 100vh;
         }
-        /* The 'No' button will be positioned absolutely to move it around */
-        #no-button {
-       transform: scale(1.1);
-        }
-        /* A little bounce animation for the 'Yes' button */
+        /* Add a subtle animation for the Yes button on hover */
         #yes-button:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+        /* Ensure the body doesn't scroll, which could interfere with interactions */
+        html, body {
+            overflow: hidden;
+            height: 100%;
         }
     </style>
 </head>
 <body class="bg-pink-50 flex items-center justify-center h-screen">
 
-   <div id="main-content" class="text-center p-4 sm:p-8 bg-pink-50 rounded-2xl shadow-lg max-w-md mx-auto transition-opacity duration-500">
+   <div id="main-content" class="w-full max-w-sm bg-pink-200 rounded-2xl shadow-2xl p-6 text-center">
   <!-- Question -->
   <h1 id="question" class="text-2xl sm:text-3xl md:text-4xl font-pacifico text-gray-800 mb-4 sm:mb-6">
     Will you be my... "something between friends and couple"?
@@ -51,22 +47,23 @@
     >
   </div>
 
-  <!-- Buttons -->
-  <div id="button-container" class="flex justify-center items-center gap-4 mt-4 flex-wrap">
-    <button draggable="true" id="yes-button" class="bg-green-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg">
-      Yes
-    </button>
-    <button id="no-button" class="bg-red-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg">
-      No
-    </button>
-  </div>
-
-  <div class="mt-4 flex justify-center">
-    <button id="target" class="bg-gray-300 text-black font-bold py-2 px-6 rounded-lg shadow-lg">
-      Put Away Go here
-    </button>
-  </div>
-</div>
+  <!-- Buttons and Drag Target -->
+        <div class="flex flex-col items-center gap-4 mt-6">
+            <!-- Container for the Yes/No buttons -->
+            <div id="button-container" class="flex gap-4 flex-wrap justify-center">
+                <button draggable="true" id="yes-button" class="bg-green-500 text-white font-bold py-3 px-8 text-lg rounded-lg shadow-lg transition-transform duration-200">
+                    Yes
+                </button>
+                <button id="no-button" class="bg-red-500 text-white font-bold py-3 px-8 text-lg rounded-lg shadow-lg">
+                    No
+                </button>
+            </div>
+            <!-- The target area for the 'Yes' button -->
+            <div id="target" class="bg-gray-200 border-2 border-dashed border-gray-400 text-gray-500 font-bold py-3 px-8 rounded-lg shadow-inner w-full">
+                Put away go Here
+            </div>
+        </div>
+    </div>
 
 
 
